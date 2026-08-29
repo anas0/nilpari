@@ -1,818 +1,596 @@
-<!DOCTYPE html>
-<html lang="zxx">
+<!doctype html>
+<html lang="en" x-data="app()" :class="{'dark':dark}" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Ritu — Freelance UI/UX Designer and Frontend Developer. Fast, clean and accessible digital products."
+    />
+    <meta
+      name="keywords"
+      content="freelance developer, UI designer, portfolio, Tailwind CSS, Alpine.js"
+    />
+    <meta name="author" content="Ritu" />
+    <meta property="og:title" content="Ritu — Freelance UI/UX Designer" />
+    <meta
+      property="og:description"
+      content="I design and build digital products that people love to use."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://Ritu.dev" />
+    <title>Ritu</title>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="description" content="Ashion Template">
-    <meta name="keywords" content="Ashion, unica, creative, html">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Nilpari</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap"
+      rel="stylesheet"
+    />
 
-    <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Cookie&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap"
-    rel="stylesheet">
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            fontFamily: {
+              display: ["PT Sans", "sans-serif"],
+              body: ["DM Sans", "sans-serif"],
+            },
+            colors: { accent: "#FF6B2B", "accent-light": "#FF8F5C" },
+          },
+        },
+      };
+    </script>
 
-    <!-- Css Styles -->
-    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
-    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
-    <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
-    <link rel="stylesheet" href="css/jquery-ui.min.css" type="text/css">
-    <link rel="stylesheet" href="css/magnific-popup.css" type="text/css">
-    <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
-    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
-    <link rel="stylesheet" href="css/style.css" type="text/css">
-</head>
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        font-family: "DM Sans", sans-serif;
+      }
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-family: "PT Sans", sans-serif;
+      }
+      body {
+        transition:
+          background-color 0.3s,
+          color 0.3s;
+      }
 
-<body>
-    <!-- Page Preloder -->
-    <div id="preloder">
-        <div class="loader"></div>
-    </div>
+      /* noise overlay */
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 0;
+        opacity: 0.35;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.05'/%3E%3C/svg%3E");
+      }
 
-    <!-- Offcanvas Menu Begin -->
-    <div class="offcanvas-menu-overlay"></div>
-    <div class="offcanvas-menu-wrapper">
-        <div class="offcanvas__close">+</div>
-        <ul class="offcanvas__widget">
-            <li><span class="icon_search search-switch"></span></li>
-            <li><a href="#"><span class="icon_heart_alt"></span>
-                <div class="tip">2</div>
-            </a></li>
-            <li><a href="#"><span class="icon_bag_alt"></span>
-                <div class="tip">2</div>
-            </a></li>
+      /* scrollbar */
+      ::-webkit-scrollbar {
+        width: 5px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #ff6b2b;
+        border-radius: 99px;
+      }
+
+      /* reveal on scroll */
+      .reveal {
+        opacity: 0;
+        transform: translateY(26px);
+        transition:
+          opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+          transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .reveal.in {
+        opacity: 1;
+        transform: none;
+      }
+      .d1 {
+        transition-delay: 0.08s;
+      }
+      .d2 {
+        transition-delay: 0.16s;
+      }
+      .d3 {
+        transition-delay: 0.24s;
+      }
+      .d4 {
+        transition-delay: 0.32s;
+      }
+
+      /* nav underline animation */
+      .nl {
+        position: relative;
+      }
+      .nl::after {
+        content: "";
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 0;
+        height: 1.5px;
+        background: currentColor;
+        transition: width 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .nl:hover::after,
+      .nl.on::after {
+        width: 100%;
+      }
+      .nl.on {
+        font-weight: 500;
+      }
+
+      /* shimmer button */
+      .shimmer {
+        position: relative;
+        overflow: hidden;
+      }
+      .shimmer::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 60%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.18);
+        transform: skewX(-20deg);
+        transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .shimmer:hover::after {
+        left: 160%;
+      }
+
+      /* photo frames */
+      .pf {
+        overflow: hidden;
+        background: #d4d4d8;
+      }
+      .pf img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      /* card hover */
+      .card-h {
+        transition:
+          transform 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+          border-color 0.18s;
+      }
+      .card-h:hover {
+        transform: translateY(-4px);
+      }
+
+      /* skill tag */
+      .stag {
+        transition: border-color 0.18s;
+      }
+
+      [x-cloak] {
+        display: none !important;
+      }
+    </style>
+  </head>
+
+  <body
+    class="bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 antialiased"
+  >
+    <!-- ═══ NAV ═══ -->
+    <header
+      class="fixed inset-x-0 top-0 z-50 transition-all duration-300"
+      :class="sc?'bg-white/90 dark:bg-zinc-950/90 backdrop-blur-md shadow-sm shadow-black/5':''"
+    >
+      <nav
+        class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between"
+        aria-label="Main navigation"
+      >
+        <a
+          href="#hero"
+          class="font-display font-bold text-xl tracking-tight relative z-10"
+        >
+          <span class="text-zinc-900 dark:text-white">Ri</span
+          ><span class="text-accent">tu</span>
+        </a>
+
+        <ul class="hidden md:flex items-center gap-8 text-sm" role="list">
+          <li>
+            <a
+              href="#services"
+              class="nl text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors"
+              :class="s==='services'?'on !text-zinc-900 dark:!text-white':''"
+              >Services</a
+            >
+          </li>
+          <li>
+            <a
+              href="#work"
+              class="nl text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors"
+              :class="s==='work'?'on !text-zinc-900 dark:!text-white':''"
+              >Work</a
+            >
+          </li>
+          <li>
+            <a
+              href="#about"
+              class="nl text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors"
+              :class="s==='about'?'on !text-zinc-900 dark:!text-white':''"
+              >About</a
+            >
+          </li>
+          <li>
+            <a
+              href="#reviews"
+              class="nl text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors"
+              :class="s==='reviews'?'on !text-zinc-900 dark:!text-white':''"
+              >Reviews</a
+            >
+          </li>
+          <li>
+            <a
+              href="#blog"
+              class="nl text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors"
+              :class="s==='blog'?'on !text-zinc-900 dark:!text-white':''"
+              >Blog</a
+            >
+          </li>
+          <li>
+            <a
+              href="#contact"
+              class="nl text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors"
+              :class="s==='contact'?'on !text-zinc-900 dark:!text-white':''"
+              >Contact</a
+            >
+          </li>
         </ul>
-        <div class="offcanvas__logo">
-            <a href="./index.html"><img src="img/logo.png" alt=""></a>
-        </div>
-        <div id="mobile-menu-wrap"></div>
-        <div class="offcanvas__auth">
-            <a href="#">Login</a>
-            <a href="#">Register</a>
-        </div>
-    </div>
-    <!-- Offcanvas Menu End -->
+      </nav>
 
-    <!-- Header Section Begin -->
-    <header class="header">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-xl-3 col-lg-2">
-                    <div class="header__logo">
-                        <h3 style="font-style: italic;">Nil Pari</h3>
-                    </div>
-                </div>
-                <div class="col-xl-6 col-lg-7">
-                    <nav class="header__menu">
-                        <ul>
-                            <li class="active"><a href="./index.html">Home</a></li>
-                            <li><a href="#">Women’s</a></li>
-                            <li><a href="#">Men’s</a></li>
-                            <li><a href="./shop.html">Shop</a></li>
-                            <li><a href="#">Pages</a>
-                                <ul class="dropdown">
-                                    <li><a href="./product-details.html">Product Details</a></li>
-                                    <li><a href="./shop-cart.html">Shop Cart</a></li>
-                                    <li><a href="./checkout.html">Checkout</a></li>
-                                    <li><a href="./blog-details.html">Blog Details</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="./blog.html">Blog</a></li>
-                            <li><a href="./contact.html">Contact</a></li>
-                        </ul>
-                    </nav>
-                </div>
-                <div class="col-lg-3">
-                    <div class="header__right">
-                        <div class="header__right__auth">
-                            <a href="#">Login</a>
-                            <a href="#">Register</a>
-                        </div>
-                        <ul class="header__right__widget">
-                            <li><span class="icon_search search-switch"></span></li>
-                            <li><a href="#"><span class="icon_heart_alt"></span>
-                                <div class="tip">2</div>
-                            </a></li>
-                            <li><a href="#"><span class="icon_bag_alt"></span>
-                                <div class="tip">2</div>
-                            </a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="canvas__open">
-                <i class="fa fa-bars"></i>
-            </div>
-        </div>
+      <!-- mobile menu -->
+      <div
+        x-show="mm"
+        x-cloak
+        x-transition:enter="transition ease-out duration-200"
+        x-transition:enter-start="opacity-0 -translate-y-2"
+        x-transition:enter-end="opacity-100 translate-y-0"
+        x-transition:leave="transition ease-in duration-150"
+        x-transition:leave-start="opacity-100 translate-y-0"
+        x-transition:leave-end="opacity-0 -translate-y-2"
+        class="md:hidden bg-white dark:bg-zinc-950 border-t border-zinc-100 dark:border-zinc-900"
+      >
+        <ul
+          class="flex flex-col px-6 py-5 gap-4 text-sm font-medium"
+          role="list"
+        >
+          <li>
+            <a
+              href="#services"
+              @click="mm=false"
+              class="block text-zinc-700 dark:text-zinc-300 hover:text-accent transition-colors"
+              >Services</a
+            >
+          </li>
+          <li>
+            <a
+              href="#work"
+              @click="mm=false"
+              class="block text-zinc-700 dark:text-zinc-300 hover:text-accent transition-colors"
+              >Work</a
+            >
+          </li>
+          <li>
+            <a
+              href="#about"
+              @click="mm=false"
+              class="block text-zinc-700 dark:text-zinc-300 hover:text-accent transition-colors"
+              >About</a
+            >
+          </li>
+          <li>
+            <a
+              href="#reviews"
+              @click="mm=false"
+              class="block text-zinc-700 dark:text-zinc-300 hover:text-accent transition-colors"
+              >Reviews</a
+            >
+          </li>
+          <li>
+            <a
+              href="#blog"
+              @click="mm=false"
+              class="block text-zinc-700 dark:text-zinc-300 hover:text-accent transition-colors"
+              >Blog</a
+            >
+          </li>
+          <li>
+            <a
+              href="#contact"
+              @click="mm=false"
+              class="block text-zinc-700 dark:text-zinc-300 hover:text-accent transition-colors"
+              >Contact</a
+            >
+          </li>
+          <li class="pt-2 border-t border-zinc-100 dark:border-zinc-900">
+            <a
+              href="#contact"
+              @click="mm=false"
+              class="inline-flex shimmer bg-accent text-white font-medium text-sm px-5 py-2.5 rounded-full"
+              >Hire me →</a
+            >
+          </li>
+        </ul>
+      </div>
     </header>
-    <!-- Header Section End -->
 
-    <!-- Categories Section Begin -->
-    <section class="categories">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-6 p-0">
-                    <div class="categories__item categories__large__item set-bg"
-                    data-setbg="img/categories/category-1.jpg">
-                    <div class="categories__text">
-                        <h1>Women’s fashion</h1>
-                        <p>Sitamet, consectetur adipiscing elit, sed do eiusmod tempor incidid-unt labore
-                        edolore magna aliquapendisse ultrices gravida.</p>
-                        <a href="#">Shop now</a>
-                    </div>
-                </div>
+    <main>
+      <!-- ═══ HERO ═══ -->
+      <section
+        id="hero"
+        class="relative min-h-screen flex items-center pt-16 overflow-hidden"
+      >
+        <div
+          class="absolute top-1/4 right-0 w-96 h-96 bg-accent/10 rounded-full blur-3xl pointer-events-none"
+          aria-hidden="true"
+        ></div>
+        <div
+          class="absolute bottom-1/4 left-0 w-64 h-64 bg-zinc-200/50 dark:bg-zinc-800/30 rounded-full blur-3xl pointer-events-none"
+          aria-hidden="true"
+        ></div>
+
+        <div class="relative z-10 max-w-6xl mx-auto px-6 py-24 w-full">
+          <div class="grid md:grid-cols-2 gap-12 items-center">
+            <div>
+              <h1
+                class="reveal d1 font-display font-bold text-5xl md:text-6xl lg:text-7xl leading-[1.05] tracking-tight text-zinc-900 dark:text-white mb-6"
+              >
+                Hi, I'm <span class="text-accent">Ritu</span>
+              </h1>
+              <p
+                class="reveal d2 text-lg md:text-xl text-zinc-500 dark:text-zinc-400 font-light leading-relaxed max-w-md mb-10"
+              >
+                Beautiful
+                <strong class="font-medium text-zinc-700 dark:text-zinc-300">
+                  and Gorgeous</strong
+                >. Shining brightly, full of joy and glowing health..
+              </p>
             </div>
-            <div class="col-lg-6">
-                <div class="row">
-                    <div class="col-lg-6 col-md-6 col-sm-6 p-0">
-                        <div class="categories__item set-bg" data-setbg="img/categories/category-2.jpg">
-                            <div class="categories__text">
-                                <h4>Men’s fashion</h4>
-                                <p>358 items</p>
-                                <a href="#">Shop now</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-6 p-0">
-                        <div class="categories__item set-bg" data-setbg="img/categories/category-3.jpg">
-                            <div class="categories__text">
-                                <h4>Kid’s fashion</h4>
-                                <p>273 items</p>
-                                <a href="#">Shop now</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-6 p-0">
-                        <div class="categories__item set-bg" data-setbg="img/categories/category-4.jpg">
-                            <div class="categories__text">
-                                <h4>Cosmetics</h4>
-                                <p>159 items</p>
-                                <a href="#">Shop now</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-6 p-0">
-                        <div class="categories__item set-bg" data-setbg="img/categories/category-5.jpg">
-                            <div class="categories__text">
-                                <h4>Accessories</h4>
-                                <p>792 items</p>
-                                <a href="#">Shop now</a>
-                            </div>
-                        </div>
-                    </div>
+
+            <div class="reveal d2 flex justify-center md:justify-end">
+              <div class="relative w-72 h-72 md:w-80 md:h-80 lg:w-96 lg:h-96">
+                <div class="pf w-full h-full rounded-3xl">
+                  <img
+                    src="asset/ritu_7.jpeg"
+                    alt="Ritu — Freelance UI/UX Designer"
+                    loading="eager"
+                  />
                 </div>
+              </div>
             </div>
+          </div>
         </div>
-    </div>
-</section>
-<!-- Categories Section End -->
+      </section>
 
-<!-- Product Section Begin -->
-<section class="product spad">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-4 col-md-4">
-                <div class="section-title">
-                    <h4>New product</h4>
-                </div>
-            </div>
-            <div class="col-lg-8 col-md-8">
-                <ul class="filter__controls">
-                    <li class="active" data-filter="*">All</li>
-                    <li data-filter=".women">Women’s</li>
-                    <li data-filter=".men">Men’s</li>
-                    <li data-filter=".kid">Kid’s</li>
-                    <li data-filter=".accessories">Accessories</li>
-                    <li data-filter=".cosmetic">Cosmetics</li>
-                </ul>
-            </div>
+      <!-- ═══ SERVICES ═══ -->
+      <section id="services" class="py-24 bg-zinc-50 dark:bg-zinc-900/40">
+        <div class="max-w-6xl mx-auto px-6">
+          <div class="mb-14">
+            <p
+              class="reveal text-xs font-medium text-accent tracking-widest uppercase mb-3"
+            >
+              I am
+            </p>
+            <h2
+              class="reveal d1 font-display font-bold text-4xl md:text-5xl text-zinc-900 dark:text-white"
+            >
+              Exquisite
+            </h2>
+          </div>
+          <div class="grid md:grid-cols-3 gap-6">
+            <article
+              class="reveal d1 card-h group bg-white dark:bg-zinc-900 rounded-2xl p-8 border border-zinc-100 dark:border-zinc-800 hover:border-accent"
+            >
+              <img src="asset/ritu_4.jpeg" alt="" />
+            </article>
+
+            <article
+              class="reveal d2 card-h group bg-zinc-900 dark:bg-zinc-800 rounded-2xl p-8 border border-zinc-800 hover:border-accent"
+            >
+              <img src="asset/ritu_2.jpeg" alt="" />
+            </article>
+
+            <article
+              class="reveal d3 card-h group bg-white dark:bg-zinc-900 rounded-2xl p-8 border border-zinc-100 dark:border-zinc-800 hover:border-accent"
+            >
+              <img src="asset/ritu_3.jpeg" alt="" />
+            </article>
+          </div>
         </div>
-        <div class="row property__gallery">
-            <div class="col-lg-3 col-md-4 col-sm-6 mix women">
-                <div class="product__item">
-                    <div class="product__item__pic set-bg" data-setbg="img/product/product-1.jpg">
-                        <div class="label new">New</div>
-                        <ul class="product__hover">
-                            <li><a href="img/product/product-1.jpg" class="image-popup"><span class="arrow_expand"></span></a></li>
-                            <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                            <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                        </ul>
-                    </div>
-                    <div class="product__item__text">
-                        <h6><a href="#">Buttons tweed blazer</a></h6>
-                        <div class="rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                        </div>
-                        <div class="product__price">$ 59.0</div>
-                    </div>
-                </div>
+      </section>
+
+      <!-- ═══ WORK ═══ -->
+      <section id="work" class="py-24">
+        <div class="max-w-6xl mx-auto px-6">
+          <div
+            class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-14"
+          >
+            <div>
+              <p
+                class="reveal text-xs font-medium text-accent tracking-widest uppercase mb-3"
+              >
+                Portfolio
+              </p>
             </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 mix men">
-                <div class="product__item">
-                    <div class="product__item__pic set-bg" data-setbg="img/product/product-2.jpg">
-                        <ul class="product__hover">
-                            <li><a href="img/product/product-2.jpg" class="image-popup"><span class="arrow_expand"></span></a></li>
-                            <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                            <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                        </ul>
-                    </div>
-                    <div class="product__item__text">
-                        <h6><a href="#">Flowy striped skirt</a></h6>
-                        <div class="rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                        </div>
-                        <div class="product__price">$ 49.0</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 mix accessories">
-                <div class="product__item">
-                    <div class="product__item__pic set-bg" data-setbg="img/product/product-3.jpg">
-                        <div class="label stockout">out of stock</div>
-                        <ul class="product__hover">
-                            <li><a href="img/product/product-3.jpg" class="image-popup"><span class="arrow_expand"></span></a></li>
-                            <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                            <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                        </ul>
-                    </div>
-                    <div class="product__item__text">
-                        <h6><a href="#">Cotton T-Shirt</a></h6>
-                        <div class="rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                        </div>
-                        <div class="product__price">$ 59.0</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 mix cosmetic">
-                <div class="product__item">
-                    <div class="product__item__pic set-bg" data-setbg="img/product/product-4.jpg">
-                        <ul class="product__hover">
-                            <li><a href="img/product/product-4.jpg" class="image-popup"><span class="arrow_expand"></span></a></li>
-                            <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                            <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                        </ul>
-                    </div>
-                    <div class="product__item__text">
-                        <h6><a href="#">Slim striped pocket shirt</a></h6>
-                        <div class="rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                        </div>
-                        <div class="product__price">$ 59.0</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 mix kid">
-                <div class="product__item">
-                    <div class="product__item__pic set-bg" data-setbg="img/product/product-5.jpg">
-                        <ul class="product__hover">
-                            <li><a href="img/product/product-5.jpg" class="image-popup"><span class="arrow_expand"></span></a></li>
-                            <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                            <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                        </ul>
-                    </div>
-                    <div class="product__item__text">
-                        <h6><a href="#">Fit micro corduroy shirt</a></h6>
-                        <div class="rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                        </div>
-                        <div class="product__price">$ 59.0</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 mix women men kid accessories cosmetic">
-                <div class="product__item sale">
-                    <div class="product__item__pic set-bg" data-setbg="img/product/product-6.jpg">
-                        <div class="label sale">Sale</div>
-                        <ul class="product__hover">
-                            <li><a href="img/product/product-6.jpg" class="image-popup"><span class="arrow_expand"></span></a></li>
-                            <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                            <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                        </ul>
-                    </div>
-                    <div class="product__item__text">
-                        <h6><a href="#">Tropical Kimono</a></h6>
-                        <div class="rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                        </div>
-                        <div class="product__price">$ 49.0 <span>$ 59.0</span></div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 mix women men kid accessories cosmetic">
-                <div class="product__item">
-                    <div class="product__item__pic set-bg" data-setbg="img/product/product-7.jpg">
-                        <ul class="product__hover">
-                            <li><a href="img/product/product-7.jpg" class="image-popup"><span class="arrow_expand"></span></a></li>
-                            <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                            <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                        </ul>
-                    </div>
-                    <div class="product__item__text">
-                        <h6><a href="#">Contrasting sunglasses</a></h6>
-                        <div class="rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                        </div>
-                        <div class="product__price">$ 59.0</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 mix women men kid accessories cosmetic">
-                <div class="product__item sale">
-                    <div class="product__item__pic set-bg" data-setbg="img/product/product-8.jpg">
-                        <div class="label">Sale</div>
-                        <ul class="product__hover">
-                            <li><a href="img/product/product-8.jpg" class="image-popup"><span class="arrow_expand"></span></a></li>
-                            <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                            <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                        </ul>
-                    </div>
-                    <div class="product__item__text">
-                        <h6><a href="#">Water resistant backpack</a></h6>
-                        <div class="rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                        </div>
-                        <div class="product__price">$ 49.0 <span>$ 59.0</span></div>
-                    </div>
-                </div>
-            </div>
+            >
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-6">
+            <article
+              class="card-h reveal d1 group rounded-2xl overflow-hidden bg-zinc-100 dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 hover:border-accent md:row-span-2"
+            >
+              <img src="asset/ritu_5.jpeg" alt="" />
+            </article>
+
+            <article
+              class="card-h reveal d2 group rounded-2xl overflow-hidden bg-zinc-100 dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 hover:border-accent"
+            >
+              <img src="asset/ritu_6.jpeg" alt="" />
+            </article>
+          </div>
         </div>
-    </div>
-</section>
-<!-- Product Section End -->
+      </section>
 
-<!-- Banner Section Begin -->
-<section class="banner set-bg" data-setbg="img/banner/banner-1.jpg">
-    <div class="container">
-        <div class="row">
-            <div class="col-xl-7 col-lg-8 m-auto">
-                <div class="banner__slider owl-carousel">
-                    <div class="banner__item">
-                        <div class="banner__text">
-                            <span>The Chloe Collection</span>
-                            <h1>The Project Jacket</h1>
-                            <a href="#">Shop now</a>
-                        </div>
-                    </div>
-                    <div class="banner__item">
-                        <div class="banner__text">
-                            <span>The Chloe Collection</span>
-                            <h1>The Project Jacket</h1>
-                            <a href="#">Shop now</a>
-                        </div>
-                    </div>
-                    <div class="banner__item">
-                        <div class="banner__text">
-                            <span>The Chloe Collection</span>
-                            <h1>The Project Jacket</h1>
-                            <a href="#">Shop now</a>
-                        </div>
-                    </div>
-                </div>
+      <!-- ═══ ABOUT ═══ -->
+      <section id="about" class="py-24 bg-zinc-50 dark:bg-zinc-900/40">
+        <div class="max-w-6xl mx-auto px-6">
+          <div class="grid md:grid-cols-2 gap-16 items-center">
+            <div class="reveal order-2 md:order-1">
+              <div class="pf w-full aspect-square max-w-sm mx-auto rounded-3xl">
+                <img
+                  src="asset/ritu_1.jpeg"
+                  alt="Ritu"
+                  loading="lazy"
+                />
+              </div>
             </div>
+
+            <div class="order-1 md:order-2">
+              <p
+                class="reveal text-xs font-medium text-accent tracking-widest uppercase mb-3"
+              >
+                About me
+              </p>
+              <h2
+                class="reveal d1 font-display font-bold text-4xl md:text-5xl text-zinc-900 dark:text-white leading-tight mb-6"
+              >
+                A bit about<br />who I am
+              </h2>
+              <p
+                class="reveal d2 text-zinc-500 dark:text-zinc-400 leading-relaxed mb-4"
+              >
+                I'm Ritu, I am an imaginative mind with a poised and disciplined approach to creative execution. Guided by strong personal integrity and a subtle, sophisticated taste.
+              </p>
+              <p
+                class="reveal d3 text-zinc-500 dark:text-zinc-400 leading-relaxed mb-8"
+              >
+                I excel at turning complex ideas into elegant, purposeful results. I bring a calm, focused energy to teams, prioritizing mutual respect, constructive growth, and substance over flashiness.
+              </p>
+              
+              </div>
+            </div>
+          </div>
         </div>
-    </div>
-</section>
-<!-- Banner Section End -->
+      </section>
 
-<!-- Trend Section Begin -->
-<section class="trend spad">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-4 col-md-4 col-sm-6">
-                <div class="trend__content">
-                    <div class="section-title">
-                        <h4>Hot Trend</h4>
-                    </div>
-                    <div class="trend__item">
-                        <div class="trend__item__pic">
-                            <img src="img/trend/ht-1.jpg" alt="">
-                        </div>
-                        <div class="trend__item__text">
-                            <h6>Chain bucket bag</h6>
-                            <div class="rating">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                            </div>
-                            <div class="product__price">$ 59.0</div>
-                        </div>
-                    </div>
-                    <div class="trend__item">
-                        <div class="trend__item__pic">
-                            <img src="img/trend/ht-2.jpg" alt="">
-                        </div>
-                        <div class="trend__item__text">
-                            <h6>Pendant earrings</h6>
-                            <div class="rating">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                            </div>
-                            <div class="product__price">$ 59.0</div>
-                        </div>
-                    </div>
-                    <div class="trend__item">
-                        <div class="trend__item__pic">
-                            <img src="img/trend/ht-3.jpg" alt="">
-                        </div>
-                        <div class="trend__item__text">
-                            <h6>Cotton T-Shirt</h6>
-                            <div class="rating">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                            </div>
-                            <div class="product__price">$ 59.0</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-6">
-                <div class="trend__content">
-                    <div class="section-title">
-                        <h4>Best seller</h4>
-                    </div>
-                    <div class="trend__item">
-                        <div class="trend__item__pic">
-                            <img src="img/trend/bs-1.jpg" alt="">
-                        </div>
-                        <div class="trend__item__text">
-                            <h6>Cotton T-Shirt</h6>
-                            <div class="rating">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                            </div>
-                            <div class="product__price">$ 59.0</div>
-                        </div>
-                    </div>
-                    <div class="trend__item">
-                        <div class="trend__item__pic">
-                            <img src="img/trend/bs-2.jpg" alt="">
-                        </div>
-                        <div class="trend__item__text">
-                            <h6>Zip-pockets pebbled tote <br />briefcase</h6>
-                            <div class="rating">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                            </div>
-                            <div class="product__price">$ 59.0</div>
-                        </div>
-                    </div>
-                    <div class="trend__item">
-                        <div class="trend__item__pic">
-                            <img src="img/trend/bs-3.jpg" alt="">
-                        </div>
-                        <div class="trend__item__text">
-                            <h6>Round leather bag</h6>
-                            <div class="rating">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                            </div>
-                            <div class="product__price">$ 59.0</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-6">
-                <div class="trend__content">
-                    <div class="section-title">
-                        <h4>Feature</h4>
-                    </div>
-                    <div class="trend__item">
-                        <div class="trend__item__pic">
-                            <img src="img/trend/f-1.jpg" alt="">
-                        </div>
-                        <div class="trend__item__text">
-                            <h6>Bow wrap skirt</h6>
-                            <div class="rating">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                            </div>
-                            <div class="product__price">$ 59.0</div>
-                        </div>
-                    </div>
-                    <div class="trend__item">
-                        <div class="trend__item__pic">
-                            <img src="img/trend/f-2.jpg" alt="">
-                        </div>
-                        <div class="trend__item__text">
-                            <h6>Metallic earrings</h6>
-                            <div class="rating">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                            </div>
-                            <div class="product__price">$ 59.0</div>
-                        </div>
-                    </div>
-                    <div class="trend__item">
-                        <div class="trend__item__pic">
-                            <img src="img/trend/f-3.jpg" alt="">
-                        </div>
-                        <div class="trend__item__text">
-                            <h6>Flap cross-body bag</h6>
-                            <div class="rating">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                            </div>
-                            <div class="product__price">$ 59.0</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- Trend Section End -->
+     
 
-<!-- Discount Section Begin -->
-<section class="discount">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-6 p-0">
-                <div class="discount__pic">
-                    <img src="img/discount.jpg" alt="">
-                </div>
-            </div>
-            <div class="col-lg-6 p-0">
-                <div class="discount__text">
-                    <div class="discount__text__title">
-                        <span>Discount</span>
-                        <h2>Summer 2019</h2>
-                        <h5><span>Sale</span> 50%</h5>
-                    </div>
-                    <div class="discount__countdown" id="countdown-time">
-                        <div class="countdown__item">
-                            <span>22</span>
-                            <p>Days</p>
-                        </div>
-                        <div class="countdown__item">
-                            <span>18</span>
-                            <p>Hour</p>
-                        </div>
-                        <div class="countdown__item">
-                            <span>46</span>
-                            <p>Min</p>
-                        </div>
-                        <div class="countdown__item">
-                            <span>05</span>
-                            <p>Sec</p>
-                        </div>
-                    </div>
-                    <a href="#">Shop now</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- Discount Section End -->
+    <footer class="border-t border-zinc-100 dark:border-zinc-900">
+      <div
+        class="max-w-6xl mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4"
+      >
+        <p class="text-sm text-zinc-400">
+          © <span id="yr"></span> Ritu. All rights reserved. <br />
+          Developed by <b><em>Anas</em></b>
+        </p>
+      </div>
+    </footer>
 
-<!-- Services Section Begin -->
-<section class="services spad">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="services__item">
-                    <i class="fa fa-car"></i>
-                    <h6>Free Shipping</h6>
-                    <p>For all oder over $99</p>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="services__item">
-                    <i class="fa fa-money"></i>
-                    <h6>Money Back Guarantee</h6>
-                    <p>If good have Problems</p>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="services__item">
-                    <i class="fa fa-support"></i>
-                    <h6>Online Support 24/7</h6>
-                    <p>Dedicated support</p>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="services__item">
-                    <i class="fa fa-headphones"></i>
-                    <h6>Payment Secure</h6>
-                    <p>100% secure payment</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- Services Section End -->
+    <script>
+      function app() {
+        return {
+          dark: false,
+          mm: false,
+          sc: false,
+          s: "hero",
 
-<!-- Instagram Begin -->
-<div class="instagram">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-lg-2 col-md-4 col-sm-4 p-0">
-                <div class="instagram__item set-bg" data-setbg="img/instagram/insta-1.jpg">
-                    <div class="instagram__text">
-                        <i class="fa fa-instagram"></i>
-                        <a href="#">@ ashion_shop</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-2 col-md-4 col-sm-4 p-0">
-                <div class="instagram__item set-bg" data-setbg="img/instagram/insta-2.jpg">
-                    <div class="instagram__text">
-                        <i class="fa fa-instagram"></i>
-                        <a href="#">@ ashion_shop</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-2 col-md-4 col-sm-4 p-0">
-                <div class="instagram__item set-bg" data-setbg="img/instagram/insta-3.jpg">
-                    <div class="instagram__text">
-                        <i class="fa fa-instagram"></i>
-                        <a href="#">@ ashion_shop</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-2 col-md-4 col-sm-4 p-0">
-                <div class="instagram__item set-bg" data-setbg="img/instagram/insta-4.jpg">
-                    <div class="instagram__text">
-                        <i class="fa fa-instagram"></i>
-                        <a href="#">@ ashion_shop</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-2 col-md-4 col-sm-4 p-0">
-                <div class="instagram__item set-bg" data-setbg="img/instagram/insta-5.jpg">
-                    <div class="instagram__text">
-                        <i class="fa fa-instagram"></i>
-                        <a href="#">@ ashion_shop</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-2 col-md-4 col-sm-4 p-0">
-                <div class="instagram__item set-bg" data-setbg="img/instagram/insta-6.jpg">
-                    <div class="instagram__text">
-                        <i class="fa fa-instagram"></i>
-                        <a href="#">@ ashion_shop</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Instagram End -->
+          init() {
+            // dark mode
+            this.dark =
+              localStorage.getItem("theme") === "dark" ||
+              (!localStorage.getItem("theme") &&
+                window.matchMedia("(prefers-color-scheme: dark)").matches);
+            this.$watch("dark", (v) =>
+              localStorage.setItem("theme", v ? "dark" : "light"),
+            );
 
-<!-- Footer Section Begin -->
-<footer class="footer">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-4 col-md-6 col-sm-7">
-                <div class="footer__about">
-                    <div class="footer__logo">
-                        <a href="./index.html"><img src="img/logo.png" alt=""></a>
-                    </div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                    cilisis.</p>
-                    <div class="footer__payment">
-                        <a href="#"><img src="img/payment/payment-1.png" alt=""></a>
-                        <a href="#"><img src="img/payment/payment-2.png" alt=""></a>
-                        <a href="#"><img src="img/payment/payment-3.png" alt=""></a>
-                        <a href="#"><img src="img/payment/payment-4.png" alt=""></a>
-                        <a href="#"><img src="img/payment/payment-5.png" alt=""></a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-2 col-md-3 col-sm-5">
-                <div class="footer__widget">
-                    <h6>Quick links</h6>
-                    <ul>
-                        <li><a href="#">About</a></li>
-                        <li><a href="#">Blogs</a></li>
-                        <li><a href="#">Contact</a></li>
-                        <li><a href="#">FAQ</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-lg-2 col-md-3 col-sm-4">
-                <div class="footer__widget">
-                    <h6>Account</h6>
-                    <ul>
-                        <li><a href="#">My Account</a></li>
-                        <li><a href="#">Orders Tracking</a></li>
-                        <li><a href="#">Checkout</a></li>
-                        <li><a href="#">Wishlist</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-8 col-sm-8">
-                <div class="footer__newslatter">
-                    <h6>NEWSLETTER</h6>
-                    <form action="#">
-                        <input type="text" placeholder="Email">
-                        <button type="submit" class="site-btn">Subscribe</button>
-                    </form>
-                    <div class="footer__social">
-                        <a href="#"><i class="fa fa-facebook"></i></a>
-                        <a href="#"><i class="fa fa-twitter"></i></a>
-                        <a href="#"><i class="fa fa-youtube-play"></i></a>
-                        <a href="#"><i class="fa fa-instagram"></i></a>
-                        <a href="#"><i class="fa fa-pinterest"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12">
-                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                <div class="footer__copyright__text">
-                    <p>Copyright &copy; <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a></p>
-                </div>
-                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-            </div>
-        </div>
-    </div>
-</footer>
-<!-- Footer Section End -->
+            // scroll
+            window.addEventListener(
+              "scroll",
+              () => {
+                this.sc = window.scrollY > 20;
+                this.updateSection();
+              },
+              { passive: true },
+            );
 
-<!-- Search Begin -->
-<div class="search-model">
-    <div class="h-100 d-flex align-items-center justify-content-center">
-        <div class="search-close-switch">+</div>
-        <form class="search-model-form">
-            <input type="text" id="search-input" placeholder="Search here.....">
-        </form>
-    </div>
-</div>
-<!-- Search End -->
+            // reveal
+            const io = new IntersectionObserver(
+              (entries) => {
+                entries.forEach((e) => {
+                  if (e.isIntersecting) {
+                    e.target.classList.add("in");
+                    io.unobserve(e.target);
+                  }
+                });
+              },
+              { threshold: 0.1, rootMargin: "0px 0px -40px 0px" },
+            );
+            document
+              .querySelectorAll(".reveal")
+              .forEach((el) => io.observe(el));
 
-<!-- Js Plugins -->
-<script src="js/jquery-3.3.1.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/jquery.magnific-popup.min.js"></script>
-<script src="js/jquery-ui.min.js"></script>
-<script src="js/mixitup.min.js"></script>
-<script src="js/jquery.countdown.min.js"></script>
-<script src="js/jquery.slicknav.js"></script>
-<script src="js/owl.carousel.min.js"></script>
-<script src="js/jquery.nicescroll.min.js"></script>
-<script src="js/main.js"></script>
-</body>
+            // year
+            document.getElementById("yr").textContent =
+              new Date().getFullYear();
+          },
 
+          updateSection() {
+            const atBottom =
+              window.innerHeight + window.scrollY >=
+              document.body.scrollHeight - 60;
+            if (atBottom) {
+              this.s = "contact";
+              return;
+            }
+            const ids = [
+              "contact",
+              "blog",
+              "reviews",
+              "about",
+              "work",
+              "services",
+              "hero",
+            ];
+            for (const id of ids) {
+              const el = document.getElementById(id);
+              if (el && window.scrollY >= el.offsetTop - 130) {
+                this.s = id;
+                return;
+              }
+            }
+          },
+        };
+      }
+    </script>
+  </body>
 </html>
